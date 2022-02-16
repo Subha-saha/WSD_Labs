@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="University">        
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Library" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Book_Id" type="xs:string"/>
+							<xs:element name="Book_name" type="xs:string"/>
+							<xs:element name="Author_name" type="xs:string"/>
+							<xs:element name="Issue_date" type="xs:string"/> 
+							<xs:element name="Return_date" type="xs:string"/>
+							<xs:element name="reviews" type="xs:string"/>
+						</xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+             </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
