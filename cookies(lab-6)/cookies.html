@@ -1,0 +1,182 @@
+<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            height: 30vw;
+            width: 30vw;
+            margin-left: 35vw;
+            margin-top: 2vw;
+            background-color: white;
+        }
+
+        .info {
+            margin-left: 2vw;
+        }
+
+        .info input[type=text],
+        input[type=email],
+        input[type=password] {
+            width: 25vw;
+            margin-top: 1vw;
+            height: 2.5vw;
+            border-radius: 2vw;
+        }
+    </style>
+   
+
+</head>
+
+<body>
+    <div class="card">
+        <h1>
+            <center>Cookies:</center>
+        </h1>
+        <div class="info">
+            <form action="">
+
+                <input type="text" id="uname" placeholder="UserName"><br>
+                <input type="password" id="password" placeholder="Password"><br><br>
+                <center>
+                    <input type="submit" value="Set Cookie" onclick="setCookie()">
+                    <input type="submit" value="Get Cookie" onclick="getCookie()">
+                    <input type="submit" value="Remove Cookie" onclick="removeCookie()"><br><br>
+                </center>
+                Select Background color:- <select id="demo" onchange="show()"><br>
+                    <option value="Select Color">Select Color</option>
+                    <option value="#E5D68A">Yellow</option>
+                    <option value="#6AC47E">Green</option>
+                    <option value="#51E1ED">Blue</option>
+                    <option value="#f4f0ec">Grey</option>
+                </select><br><br>
+                Select Image:-<select id="bg" onchange="showBg()">
+                    <option value="Select bg">Select bg</option>
+                    <option value="a.jpg">Yellow</option>
+                    <option value="b.jpg">Green</option>
+                    <option value="c.jpg">Blue</option>
+                </select>
+            </form>
+        <b>My Local Storage:-</b>
+        <p id="data" ></p>
+        <br>
+        <b>My Session Storage:-</b>
+        <p id="session"></p>
+            </div>
+        </div>
+    </div>
+    <div id="header" style="margin-right: 2vw;">
+    </div>
+</body>
+<script>
+    //Local storage
+    var person = { "username": "Jeetank", "Password": "J21" };
+    var person2 = { "username": "Nikit", "Password": "N21" };
+    localStorage.setItem('person', JSON.stringify(person));
+    localStorage.setItem('person2', JSON.stringify(person2));
+
+    var retrievedPerson = JSON.parse(localStorage.getItem('person'));
+    var retrievedPerson2 = JSON.parse(localStorage.getItem('person2'));
+
+    document.getElementById("data").innerHTML = localStorage.getItem('person')
+    // console.log(localStorage.getItem('person2'));
+    // console.log(localStorage.getItem('person'));
+
+    //Session
+    var employee = { "username": "Jeetank", "place": "Bangalore" };
+    var employee2 = { "username": "Nikit", "place": "Chennai" };
+    sessionStorage.setItem('employee', JSON.stringify(employee));
+    sessionStorage.setItem('employee2', JSON.stringify(employee2));
+
+    var retrievedemployee = JSON.parse(sessionStorage.getItem('employee'));
+    var retrievedemployee2 = JSON.parse(sessionStorage.getItem('employee2'));
+
+    document.getElementById('session').innerHTML = sessionStorage.getItem('employee')
+    // console.log(sessionStorage.getItem('employee2'))
+    // console.log(sessionStorage.getItem('employee'))
+
+    function setCookie() {
+        var fnme = uname.value
+        var lnme = password.value
+        document.cookie = " Name =" + fnme
+        document.cookie = "Password =" + lnme
+    }
+
+    function getCookie() {
+        if (document.cookie.length != 0) {
+
+
+            var allcookies = document.cookie;
+            document.write("All Cookies : " + allcookies);
+
+            // Get all the cookies pairs in an array
+            cookiearray = allcookies.split(';');
+
+            // Now take key value pair out of this array
+            for (var i = 0; i < cookiearray.length; i++) {
+                name = cookiearray[i].split('=')[0];
+                value = cookiearray[i].split('=')[1];
+                document.write('<br>' + "Key is : " + name + " and Value is : " + value);
+            }
+        }
+        else {
+            alert("No cookies")
+        }
+    }
+
+    function removeCookie() {
+        document.cookie = "Name=; expires=Thu, 01 Jan 2022 00:00:00 UTC; path=/;";
+        document.cookie = "Password=; expires=Thu, 01 Jan 2022 00:00:00 UTC; path=/;"
+    }
+
+    function show() {
+        var value = document.getElementById("demo").value;
+        if (value != "Select Color") {
+            document.bgColor = value;
+            document.cookie = "color=" + value + ";expires=Fri,2 Feb 2022 01:00:00 UTC;";
+        }
+    }
+    window.onload = function () {
+        if (document.cookie.length != 0) {
+            var a = document.cookie.split("=");
+            document.getElementById("demo").value = a[1];
+            document.bgColor = a[1];
+        }
+    }
+
+    function showBg() {
+            var value = document.getElementById("bg").value;
+            if (value != "Select Image") {
+                document.bgImg = value;
+                document.cookie = "img src=" + value + ";expires=Fri,27 Jan 2022 01:57:55 UTC;";
+            }
+        }
+        window.onclick = function () {
+            var value = document.getElementById("bg").value;
+            console.log(value)
+
+            if (document.cookie.length != 0) {
+                
+        
+                var a = document.cookie.split("=");
+                document.getElementById("bg").value = a[1];
+                var img = document.createElement("img");
+                img.src = value;
+                img.style="width:400px;height:200px;"
+                var src = document.getElementById("header");
+                src.appendChild(img);
+
+
+            }
+            
+        }
+</script>
+</html>
